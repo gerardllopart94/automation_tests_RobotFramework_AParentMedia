@@ -1,0 +1,1377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0 (Python 3.8.10 on linux)" generated="20241024 14:56:55.791" rpa="false" schemaversion="3">
+<suite id="s1" name="Test Suite API" source="/home/gerardllopart/Projects/RobotFramework-Sample/Tests/Test_Suite_API.robot">
+<test id="s1-t1" name="Check API endpoints code and response keys for profile endpoints" line="40">
+<kw name="Check API response code and response keys in json format if necessary" library="Logic_Keywords_API">
+<arg>/users/gerardllopart94</arg>
+<arg>noTokenNeeded</arg>
+<arg>200</arg>
+<arg>yesNeedToCheckResponseKeys</arg>
+<arg>@{expresponse_user_public_profile}</arg>
+<if>
+<branch type="IF" condition="'${needToken}' == 'noTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20241024 14:56:55.970" level="INFO">Creating Session using : alias=github_session, url=http://api.github.com/users/gerardllopart94, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20241024 14:56:55.970" endtime="20241024 14:56:55.973"/>
+</kw>
+<status status="PASS" starttime="20241024 14:56:55.969" endtime="20241024 14:56:55.973"/>
+</branch>
+<branch type="ELSE IF" condition="'${needToken}' == 'yesTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<arg>headers={"Authorization": "token ${token}"}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="NOT RUN" starttime="20241024 14:56:55.974" endtime="20241024 14:56:55.974"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:55.974" endtime="20241024 14:56:55.974"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:55.969" endtime="20241024 14:56:55.974"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${response_status}</var>
+<arg>GET On Session</arg>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="GET On Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:56:56.381" level="INFO">GET Request : url=http://api.github.com/users/gerardllopart94 (redirected) 
+ path_url=/users/gerardllopart94 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:56:56.382" level="INFO">GET Response : url=https://api.github.com/users/gerardllopart94 
+ status=403, reason=rate limit exceeded 
+ headers={'Date': 'Thu, 24 Oct 2024 12:56:56 GMT', 'Server': 'Varnish', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'deny', 'X-XSS-Protection': '1; mode=block', 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'", 'Access-Control-Allow-Origin': '*', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-RateLimit-Used, X-RateLimit-Resource, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset', 'Content-Type': 'application/json; charset=utf-8', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'X-GitHub-Media-Type': 'github.v3; format=json', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1729776088', 'X-RateLimit-Resource': 'core', 'X-RateLimit-Used': '60', 'Content-Length': '279', 'X-GitHub-Request-Id': 'BCA0:12547C:7C6BD5:83ABE7:671A4418'} 
+ body={"message":"API rate limit exceeded for 34.249.211.96. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"}
+ 
+ </msg>
+<msg timestamp="20241024 14:56:56.385" level="FAIL">HTTPError: 403 Client Error: rate limit exceeded for url: https://api.github.com/users/gerardllopart94</msg>
+<status status="FAIL" starttime="20241024 14:56:55.975" endtime="20241024 14:56:56.389"/>
+</kw>
+<msg timestamp="20241024 14:56:56.390" level="INFO">${response_status} = False</msg>
+<status status="PASS" starttime="20241024 14:56:55.974" endtime="20241024 14:56:56.391"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_status}' == 'True'">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.392" endtime="20241024 14:56:56.392"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:56.391" endtime="20241024 14:56:56.393"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:56.391" endtime="20241024 14:56:56.393"/>
+</if>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${expected_endpoint_response_code}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<msg timestamp="20241024 14:56:56.394" level="FAIL">Url: https://api.github.com/users/gerardllopart94 Expected status: 403 != 200</msg>
+<status status="FAIL" starttime="20241024 14:56:56.393" endtime="20241024 14:56:56.397"/>
+</kw>
+<if>
+<branch type="IF" condition="'${needToCheckResponseKeys}' == 'yesNeedToCheckResponseKeys'">
+<try>
+<branch type="TRY">
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${response.json()}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.399" endtime="20241024 14:56:56.400"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:56.399" endtime="20241024 14:56:56.400"/>
+</branch>
+<branch type="EXCEPT">
+<kw name="Create List" library="BuiltIn">
+<var>${json_keys}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.401" endtime="20241024 14:56:56.401"/>
+</kw>
+<for flavor="IN">
+<var>${repo}</var>
+<value>@{response.json()}</value>
+<iter>
+<var name="${repo}"/>
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${repo}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.402" endtime="20241024 14:56:56.402"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:56.402" endtime="20241024 14:56:56.402"/>
+</iter>
+<status status="NOT RUN" starttime="20241024 14:56:56.401" endtime="20241024 14:56:56.403"/>
+</for>
+<status status="NOT RUN" starttime="20241024 14:56:56.400" endtime="20241024 14:56:56.403"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:56.399" endtime="20241024 14:56:56.403"/>
+</try>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${json_keys}</arg>
+<arg>${expected_response_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.403" endtime="20241024 14:56:56.404"/>
+</kw>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${expected_response_keys}</arg>
+<arg>${json_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.404" endtime="20241024 14:56:56.405"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:56.398" endtime="20241024 14:56:56.405"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:56.398" endtime="20241024 14:56:56.405"/>
+</if>
+<status status="FAIL" starttime="20241024 14:56:55.968" endtime="20241024 14:56:56.405"/>
+</kw>
+<kw name="Check API response code and response keys in json format if necessary" library="Logic_Keywords_API">
+<arg>/users/gerardllopart94usernotfound</arg>
+<arg>noTokenNeeded</arg>
+<arg>404</arg>
+<arg>noNeedToCheckResponseKeys</arg>
+<arg>${EMPTY}</arg>
+<if>
+<branch type="IF" condition="'${needToken}' == 'noTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20241024 14:56:56.409" level="INFO">Creating Session using : alias=github_session, url=http://api.github.com/users/gerardllopart94usernotfound, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20241024 14:56:56.408" endtime="20241024 14:56:56.409"/>
+</kw>
+<status status="PASS" starttime="20241024 14:56:56.408" endtime="20241024 14:56:56.410"/>
+</branch>
+<branch type="ELSE IF" condition="'${needToken}' == 'yesTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<arg>headers={"Authorization": "token ${token}"}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.410" endtime="20241024 14:56:56.410"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:56.410" endtime="20241024 14:56:56.410"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:56.408" endtime="20241024 14:56:56.410"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${response_status}</var>
+<arg>GET On Session</arg>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="GET On Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:56:56.810" level="INFO">GET Request : url=http://api.github.com/users/gerardllopart94usernotfound (redirected) 
+ path_url=/users/gerardllopart94usernotfound 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:56:56.810" level="INFO">GET Response : url=https://api.github.com/users/gerardllopart94usernotfound 
+ status=403, reason=rate limit exceeded 
+ headers={'Date': 'Thu, 24 Oct 2024 12:56:56 GMT', 'Server': 'Varnish', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'deny', 'X-XSS-Protection': '1; mode=block', 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'", 'Access-Control-Allow-Origin': '*', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-RateLimit-Used, X-RateLimit-Resource, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset', 'Content-Type': 'application/json; charset=utf-8', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'X-GitHub-Media-Type': 'github.v3; format=json', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1729776088', 'X-RateLimit-Resource': 'core', 'X-RateLimit-Used': '60', 'Content-Length': '279', 'X-GitHub-Request-Id': 'BCA6:126F87:7ED5E0:86159E:671A4418'} 
+ body={"message":"API rate limit exceeded for 34.249.211.96. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"}
+ 
+ </msg>
+<msg timestamp="20241024 14:56:56.812" level="FAIL">HTTPError: 403 Client Error: rate limit exceeded for url: https://api.github.com/users/gerardllopart94usernotfound</msg>
+<status status="FAIL" starttime="20241024 14:56:56.411" endtime="20241024 14:56:56.813"/>
+</kw>
+<msg timestamp="20241024 14:56:56.815" level="INFO">${response_status} = False</msg>
+<status status="PASS" starttime="20241024 14:56:56.411" endtime="20241024 14:56:56.815"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_status}' == 'True'">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.817" endtime="20241024 14:56:56.818"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:56.816" endtime="20241024 14:56:56.819"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:56.816" endtime="20241024 14:56:56.819"/>
+</if>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${expected_endpoint_response_code}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<msg timestamp="20241024 14:56:56.822" level="FAIL">Url: https://api.github.com/users/gerardllopart94usernotfound Expected status: 403 != 404</msg>
+<status status="FAIL" starttime="20241024 14:56:56.820" endtime="20241024 14:56:56.823"/>
+</kw>
+<if>
+<branch type="IF" condition="'${needToCheckResponseKeys}' == 'yesNeedToCheckResponseKeys'">
+<try>
+<branch type="TRY">
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${response.json()}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.825" endtime="20241024 14:56:56.825"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:56.824" endtime="20241024 14:56:56.825"/>
+</branch>
+<branch type="EXCEPT">
+<kw name="Create List" library="BuiltIn">
+<var>${json_keys}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.825" endtime="20241024 14:56:56.826"/>
+</kw>
+<for flavor="IN">
+<var>${repo}</var>
+<value>@{response.json()}</value>
+<iter>
+<var name="${repo}"/>
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${repo}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.826" endtime="20241024 14:56:56.826"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:56.826" endtime="20241024 14:56:56.826"/>
+</iter>
+<status status="NOT RUN" starttime="20241024 14:56:56.826" endtime="20241024 14:56:56.826"/>
+</for>
+<status status="NOT RUN" starttime="20241024 14:56:56.825" endtime="20241024 14:56:56.826"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:56.824" endtime="20241024 14:56:56.826"/>
+</try>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${json_keys}</arg>
+<arg>${expected_response_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.827" endtime="20241024 14:56:56.827"/>
+</kw>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${expected_response_keys}</arg>
+<arg>${json_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.827" endtime="20241024 14:56:56.827"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:56.823" endtime="20241024 14:56:56.827"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:56.823" endtime="20241024 14:56:56.828"/>
+</if>
+<status status="FAIL" starttime="20241024 14:56:56.406" endtime="20241024 14:56:56.828"/>
+</kw>
+<kw name="Check API response code and response keys in json format if necessary" library="Logic_Keywords_API">
+<arg>/user</arg>
+<arg>yesTokenNeeded</arg>
+<arg>200</arg>
+<arg>yesNeedToCheckResponseKeys</arg>
+<arg>@{expresponse_user_private_profile}</arg>
+<if>
+<branch type="IF" condition="'${needToken}' == 'noTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="NOT RUN" starttime="20241024 14:56:56.830" endtime="20241024 14:56:56.830"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:56.829" endtime="20241024 14:56:56.830"/>
+</branch>
+<branch type="ELSE IF" condition="'${needToken}' == 'yesTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<arg>headers={"Authorization": "token ${token}"}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20241024 14:56:56.831" level="INFO">Creating Session using : alias=github_session, url=http://api.github.com/user, headers={'Authorization': 'token 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'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20241024 14:56:56.831" endtime="20241024 14:56:56.832"/>
+</kw>
+<status status="PASS" starttime="20241024 14:56:56.831" endtime="20241024 14:56:56.832"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:56.829" endtime="20241024 14:56:56.832"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${response_status}</var>
+<arg>GET On Session</arg>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="GET On Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:56:57.496" level="INFO">GET Request : url=http://api.github.com/user (redirected) 
+ path_url=/user 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'token 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'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:56:57.497" level="INFO">GET Response : url=https://api.github.com/user 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 24 Oct 2024 12:56:57 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'private, max-age=60, s-maxage=60', 'Vary': 'Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept, X-Requested-With', 'ETag': 'W/"30472e238dd01bd6edb77ce21edb741151ec940edba36a34fd9e0b25e06ec112"', 'Last-Modified': 'Thu, 24 Oct 2024 11:32:37 GMT', 'github-authentication-token-expiration': '2024-11-23 12:37:34 +0100', 'X-GitHub-Media-Type': 'github.v3; format=json', 'x-accepted-github-permissions': 'allows_permissionless_access=true', 'x-github-api-version-selected': '2022-11-28', 'X-RateLimit-Limit': '5000', 'X-RateLimit-Remaining': '4978', 'X-RateLimit-Reset': '1729776507', 'X-RateLimit-Used': '22', 'X-RateLimit-Resource': 'core', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset', 'Access-Control-Allow-Origin': '*', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Frame-Options': 'deny', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'Content-Security-Policy': "default-src 'none'", 'Content-Encoding': 'gzip', 'Transfer-Encoding': 'chunked', 'Server': 'github.com', 'X-GitHub-Request-Id': 'BCA8:11FB87:930E21:9A4DE9:671A4419'} 
+ body={"login":"gerardllopart94","id":186145156,"node_id":"U_kgDOCxhZhA","avatar_url":"https://avatars.githubusercontent.com/u/186145156?v=4","gravatar_id":"","url":"https://api.github.com/users/gerardllopart94","html_url":"https://github.com/gerardllopart94","followers_url":"https://api.github.com/users/gerardllopart94/followers","following_url":"https://api.github.com/users/gerardllopart94/following{/other_user}","gists_url":"https://api.github.com/users/gerardllopart94/gists{/gist_id}","starred_url":"https://api.github.com/users/gerardllopart94/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/gerardllopart94/subscriptions","organizations_url":"https://api.github.com/users/gerardllopart94/orgs","repos_url":"https://api.github.com/users/gerardllopart94/repos","events_url":"https://api.github.com/users/gerardllopart94/events{/privacy}","received_events_url":"https://api.github.com/users/gerardllopart94/received_events","type":"User","user_view_type":"public","site_admin":false,"name":null,"company":null,"blog":"","location":null,"email":null,"hireable":null,"bio":null,"twitter_username":null,"notification_email":null,"public_repos":1,"public_gists":0,"followers":0,"following":0,"created_at":"2024-10-24T07:34:33Z","updated_at":"2024-10-24T11:32:37Z"} 
+ </msg>
+<status status="PASS" starttime="20241024 14:56:56.832" endtime="20241024 14:56:57.498"/>
+</kw>
+<msg timestamp="20241024 14:56:57.498" level="INFO">${response_status} = True</msg>
+<status status="PASS" starttime="20241024 14:56:56.832" endtime="20241024 14:56:57.499"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_status}' == 'True'">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:56:57.801" level="INFO">GET Request : url=http://api.github.com/user (redirected) 
+ path_url=/user 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'token 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'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:56:57.801" level="INFO">GET Response : url=https://api.github.com/user 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 24 Oct 2024 12:56:57 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'private, max-age=60, s-maxage=60', 'Vary': 'Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept, X-Requested-With', 'ETag': 'W/"30472e238dd01bd6edb77ce21edb741151ec940edba36a34fd9e0b25e06ec112"', 'Last-Modified': 'Thu, 24 Oct 2024 11:32:37 GMT', 'github-authentication-token-expiration': '2024-11-23 12:37:34 +0100', 'X-GitHub-Media-Type': 'github.v3; format=json', 'x-accepted-github-permissions': 'allows_permissionless_access=true', 'x-github-api-version-selected': '2022-11-28', 'X-RateLimit-Limit': '5000', 'X-RateLimit-Remaining': '4977', 'X-RateLimit-Reset': '1729776507', 'X-RateLimit-Used': '23', 'X-RateLimit-Resource': 'core', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset', 'Access-Control-Allow-Origin': '*', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Frame-Options': 'deny', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'Content-Security-Policy': "default-src 'none'", 'Content-Encoding': 'gzip', 'Transfer-Encoding': 'chunked', 'Server': 'github.com', 'X-GitHub-Request-Id': 'BCA8:11FB87:930E43:9A4E0C:671A4419'} 
+ body={"login":"gerardllopart94","id":186145156,"node_id":"U_kgDOCxhZhA","avatar_url":"https://avatars.githubusercontent.com/u/186145156?v=4","gravatar_id":"","url":"https://api.github.com/users/gerardllopart94","html_url":"https://github.com/gerardllopart94","followers_url":"https://api.github.com/users/gerardllopart94/followers","following_url":"https://api.github.com/users/gerardllopart94/following{/other_user}","gists_url":"https://api.github.com/users/gerardllopart94/gists{/gist_id}","starred_url":"https://api.github.com/users/gerardllopart94/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/gerardllopart94/subscriptions","organizations_url":"https://api.github.com/users/gerardllopart94/orgs","repos_url":"https://api.github.com/users/gerardllopart94/repos","events_url":"https://api.github.com/users/gerardllopart94/events{/privacy}","received_events_url":"https://api.github.com/users/gerardllopart94/received_events","type":"User","user_view_type":"public","site_admin":false,"name":null,"company":null,"blog":"","location":null,"email":null,"hireable":null,"bio":null,"twitter_username":null,"notification_email":null,"public_repos":1,"public_gists":0,"followers":0,"following":0,"created_at":"2024-10-24T07:34:33Z","updated_at":"2024-10-24T11:32:37Z"} 
+ </msg>
+<msg timestamp="20241024 14:56:57.802" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20241024 14:56:57.501" endtime="20241024 14:56:57.802"/>
+</kw>
+<status status="PASS" starttime="20241024 14:56:57.500" endtime="20241024 14:56:57.802"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:57.499" endtime="20241024 14:56:57.802"/>
+</if>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${expected_endpoint_response_code}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20241024 14:56:57.802" endtime="20241024 14:56:57.803"/>
+</kw>
+<if>
+<branch type="IF" condition="'${needToCheckResponseKeys}' == 'yesNeedToCheckResponseKeys'">
+<try>
+<branch type="TRY">
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${response.json()}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<msg timestamp="20241024 14:56:57.804" level="INFO">${json_keys} = ['avatar_url', 'bio', 'blog', 'company', 'created_at', 'email', 'events_url', 'followers', 'followers_url', 'following', 'following_url', 'gists_url', 'gravatar_id', 'hireable', 'html_url', 'id', 'loc...</msg>
+<status status="PASS" starttime="20241024 14:56:57.803" endtime="20241024 14:56:57.804"/>
+</kw>
+<status status="PASS" starttime="20241024 14:56:57.803" endtime="20241024 14:56:57.804"/>
+</branch>
+<branch type="EXCEPT">
+<kw name="Create List" library="BuiltIn">
+<var>${json_keys}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:57.805" endtime="20241024 14:56:57.805"/>
+</kw>
+<for flavor="IN">
+<var>${repo}</var>
+<value>@{response.json()}</value>
+<iter>
+<var name="${repo}"/>
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${repo}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:57.805" endtime="20241024 14:56:57.805"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:57.805" endtime="20241024 14:56:57.805"/>
+</iter>
+<status status="NOT RUN" starttime="20241024 14:56:57.805" endtime="20241024 14:56:57.805"/>
+</for>
+<status status="NOT RUN" starttime="20241024 14:56:57.804" endtime="20241024 14:56:57.806"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:57.803" endtime="20241024 14:56:57.806"/>
+</try>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${json_keys}</arg>
+<arg>${expected_response_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="PASS" starttime="20241024 14:56:57.806" endtime="20241024 14:56:57.806"/>
+</kw>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${expected_response_keys}</arg>
+<arg>${json_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="PASS" starttime="20241024 14:56:57.806" endtime="20241024 14:56:57.807"/>
+</kw>
+<status status="PASS" starttime="20241024 14:56:57.803" endtime="20241024 14:56:57.807"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:57.803" endtime="20241024 14:56:57.807"/>
+</if>
+<status status="PASS" starttime="20241024 14:56:56.829" endtime="20241024 14:56:57.807"/>
+</kw>
+<kw name="Check API response code and response keys in json format if necessary" library="Logic_Keywords_API">
+<arg>/user</arg>
+<arg>noTokenNeeded</arg>
+<arg>401</arg>
+<arg>noNeedToCheckResponseKeys</arg>
+<arg>${EMPTY}</arg>
+<if>
+<branch type="IF" condition="'${needToken}' == 'noTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20241024 14:56:57.809" level="INFO">Creating Session using : alias=github_session, url=http://api.github.com/user, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20241024 14:56:57.809" endtime="20241024 14:56:57.810"/>
+</kw>
+<status status="PASS" starttime="20241024 14:56:57.809" endtime="20241024 14:56:57.810"/>
+</branch>
+<branch type="ELSE IF" condition="'${needToken}' == 'yesTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<arg>headers={"Authorization": "token ${token}"}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="NOT RUN" starttime="20241024 14:56:57.810" endtime="20241024 14:56:57.810"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:57.810" endtime="20241024 14:56:57.810"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:57.809" endtime="20241024 14:56:57.810"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${response_status}</var>
+<arg>GET On Session</arg>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="GET On Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:56:58.177" level="INFO">GET Request : url=http://api.github.com/user (redirected) 
+ path_url=/user 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:56:58.178" level="INFO">GET Response : url=https://api.github.com/user 
+ status=403, reason=rate limit exceeded 
+ headers={'Date': 'Thu, 24 Oct 2024 12:56:58 GMT', 'Server': 'Varnish', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'deny', 'X-XSS-Protection': '1; mode=block', 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'", 'Access-Control-Allow-Origin': '*', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-RateLimit-Used, X-RateLimit-Resource, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset', 'Content-Type': 'application/json; charset=utf-8', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'X-GitHub-Media-Type': 'github.v3; format=json', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1729776088', 'X-RateLimit-Resource': 'core', 'X-RateLimit-Used': '60', 'Content-Length': '279', 'X-GitHub-Request-Id': 'BCB6:1291E9:833A38:8A79FD:671A441A'} 
+ body={"message":"API rate limit exceeded for 34.249.211.96. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"}
+ 
+ </msg>
+<msg timestamp="20241024 14:56:58.179" level="FAIL">HTTPError: 403 Client Error: rate limit exceeded for url: https://api.github.com/user</msg>
+<status status="FAIL" starttime="20241024 14:56:57.811" endtime="20241024 14:56:58.181"/>
+</kw>
+<msg timestamp="20241024 14:56:58.182" level="INFO">${response_status} = False</msg>
+<status status="PASS" starttime="20241024 14:56:57.810" endtime="20241024 14:56:58.182"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_status}' == 'True'">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.185" endtime="20241024 14:56:58.186"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:58.184" endtime="20241024 14:56:58.187"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:58.183" endtime="20241024 14:56:58.187"/>
+</if>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${expected_endpoint_response_code}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<msg timestamp="20241024 14:56:58.192" level="FAIL">Url: https://api.github.com/user Expected status: 403 != 401</msg>
+<status status="FAIL" starttime="20241024 14:56:58.189" endtime="20241024 14:56:58.193"/>
+</kw>
+<if>
+<branch type="IF" condition="'${needToCheckResponseKeys}' == 'yesNeedToCheckResponseKeys'">
+<try>
+<branch type="TRY">
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${response.json()}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.197" endtime="20241024 14:56:58.198"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:58.196" endtime="20241024 14:56:58.199"/>
+</branch>
+<branch type="EXCEPT">
+<kw name="Create List" library="BuiltIn">
+<var>${json_keys}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.200" endtime="20241024 14:56:58.201"/>
+</kw>
+<for flavor="IN">
+<var>${repo}</var>
+<value>@{response.json()}</value>
+<iter>
+<var name="${repo}"/>
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${repo}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.202" endtime="20241024 14:56:58.203"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:58.202" endtime="20241024 14:56:58.204"/>
+</iter>
+<status status="NOT RUN" starttime="20241024 14:56:58.201" endtime="20241024 14:56:58.204"/>
+</for>
+<status status="NOT RUN" starttime="20241024 14:56:58.200" endtime="20241024 14:56:58.205"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:58.196" endtime="20241024 14:56:58.205"/>
+</try>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${json_keys}</arg>
+<arg>${expected_response_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.205" endtime="20241024 14:56:58.206"/>
+</kw>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${expected_response_keys}</arg>
+<arg>${json_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.206" endtime="20241024 14:56:58.206"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:58.195" endtime="20241024 14:56:58.207"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:58.195" endtime="20241024 14:56:58.207"/>
+</if>
+<status status="FAIL" starttime="20241024 14:56:57.808" endtime="20241024 14:56:58.208"/>
+</kw>
+<kw name="Check API response code and response keys in json format if necessary" library="Logic_Keywords_API">
+<arg>/userTest</arg>
+<arg>noTokenNeeded</arg>
+<arg>404</arg>
+<arg>noNeedToCheckResponseKeys</arg>
+<arg>${EMPTY}</arg>
+<if>
+<branch type="IF" condition="'${needToken}' == 'noTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20241024 14:56:58.212" level="INFO">Creating Session using : alias=github_session, url=http://api.github.com/userTest, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20241024 14:56:58.211" endtime="20241024 14:56:58.213"/>
+</kw>
+<status status="PASS" starttime="20241024 14:56:58.211" endtime="20241024 14:56:58.213"/>
+</branch>
+<branch type="ELSE IF" condition="'${needToken}' == 'yesTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<arg>headers={"Authorization": "token ${token}"}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.214" endtime="20241024 14:56:58.214"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:58.213" endtime="20241024 14:56:58.214"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:58.211" endtime="20241024 14:56:58.215"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${response_status}</var>
+<arg>GET On Session</arg>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="GET On Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:56:58.630" level="INFO">GET Request : url=http://api.github.com/userTest (redirected) 
+ path_url=/userTest 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:56:58.631" level="INFO">GET Response : url=https://api.github.com/userTest 
+ status=403, reason=rate limit exceeded 
+ headers={'Date': 'Thu, 24 Oct 2024 12:56:58 GMT', 'Server': 'Varnish', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'deny', 'X-XSS-Protection': '1; mode=block', 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'", 'Access-Control-Allow-Origin': '*', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-RateLimit-Used, X-RateLimit-Resource, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset', 'Content-Type': 'application/json; charset=utf-8', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'X-GitHub-Media-Type': 'github.v3; format=json', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1729776088', 'X-RateLimit-Resource': 'core', 'X-RateLimit-Used': '60', 'Content-Length': '279', 'X-GitHub-Request-Id': 'BCBA:1252BA:8236DC:8976B0:671A441A'} 
+ body={"message":"API rate limit exceeded for 34.249.211.96. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"}
+ 
+ </msg>
+<msg timestamp="20241024 14:56:58.633" level="FAIL">HTTPError: 403 Client Error: rate limit exceeded for url: https://api.github.com/userTest</msg>
+<status status="FAIL" starttime="20241024 14:56:58.217" endtime="20241024 14:56:58.634"/>
+</kw>
+<msg timestamp="20241024 14:56:58.635" level="INFO">${response_status} = False</msg>
+<status status="PASS" starttime="20241024 14:56:58.215" endtime="20241024 14:56:58.635"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_status}' == 'True'">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.638" endtime="20241024 14:56:58.638"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:58.636" endtime="20241024 14:56:58.639"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:58.636" endtime="20241024 14:56:58.639"/>
+</if>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${expected_endpoint_response_code}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<msg timestamp="20241024 14:56:58.642" level="FAIL">Url: https://api.github.com/userTest Expected status: 403 != 404</msg>
+<status status="FAIL" starttime="20241024 14:56:58.640" endtime="20241024 14:56:58.644"/>
+</kw>
+<if>
+<branch type="IF" condition="'${needToCheckResponseKeys}' == 'yesNeedToCheckResponseKeys'">
+<try>
+<branch type="TRY">
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${response.json()}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.647" endtime="20241024 14:56:58.648"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:58.646" endtime="20241024 14:56:58.648"/>
+</branch>
+<branch type="EXCEPT">
+<kw name="Create List" library="BuiltIn">
+<var>${json_keys}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.650" endtime="20241024 14:56:58.651"/>
+</kw>
+<for flavor="IN">
+<var>${repo}</var>
+<value>@{response.json()}</value>
+<iter>
+<var name="${repo}"/>
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${repo}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.653" endtime="20241024 14:56:58.655"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:58.652" endtime="20241024 14:56:58.655"/>
+</iter>
+<status status="NOT RUN" starttime="20241024 14:56:58.652" endtime="20241024 14:56:58.656"/>
+</for>
+<status status="NOT RUN" starttime="20241024 14:56:58.649" endtime="20241024 14:56:58.657"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:58.646" endtime="20241024 14:56:58.657"/>
+</try>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${json_keys}</arg>
+<arg>${expected_response_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.658" endtime="20241024 14:56:58.658"/>
+</kw>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${expected_response_keys}</arg>
+<arg>${json_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.659" endtime="20241024 14:56:58.660"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:58.645" endtime="20241024 14:56:58.661"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:58.645" endtime="20241024 14:56:58.661"/>
+</if>
+<status status="FAIL" starttime="20241024 14:56:58.209" endtime="20241024 14:56:58.662"/>
+</kw>
+<kw name="Check API response code and response keys in json format if necessary" library="Logic_Keywords_API">
+<arg>/users/gerardllopart94/repos</arg>
+<arg>noTokenNeeded</arg>
+<arg>200</arg>
+<arg>yesNeedToCheckResponseKeys</arg>
+<arg>@{expresponse_user_public_repos}</arg>
+<if>
+<branch type="IF" condition="'${needToken}' == 'noTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20241024 14:56:58.667" level="INFO">Creating Session using : alias=github_session, url=http://api.github.com/users/gerardllopart94/repos, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20241024 14:56:58.666" endtime="20241024 14:56:58.668"/>
+</kw>
+<status status="PASS" starttime="20241024 14:56:58.665" endtime="20241024 14:56:58.668"/>
+</branch>
+<branch type="ELSE IF" condition="'${needToken}' == 'yesTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<arg>headers={"Authorization": "token ${token}"}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="NOT RUN" starttime="20241024 14:56:58.669" endtime="20241024 14:56:58.670"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:58.669" endtime="20241024 14:56:58.670"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:58.665" endtime="20241024 14:56:58.670"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${response_status}</var>
+<arg>GET On Session</arg>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="GET On Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:56:59.072" level="INFO">GET Request : url=http://api.github.com/users/gerardllopart94/repos (redirected) 
+ path_url=/users/gerardllopart94/repos 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:56:59.073" level="INFO">GET Response : url=https://api.github.com/users/gerardllopart94/repos 
+ status=403, reason=rate limit exceeded 
+ headers={'Date': 'Thu, 24 Oct 2024 12:56:59 GMT', 'Server': 'Varnish', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'deny', 'X-XSS-Protection': '1; mode=block', 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'", 'Access-Control-Allow-Origin': '*', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-RateLimit-Used, X-RateLimit-Resource, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset', 'Content-Type': 'application/json; charset=utf-8', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'X-GitHub-Media-Type': 'github.v3; format=json', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1729776088', 'X-RateLimit-Resource': 'core', 'X-RateLimit-Used': '60', 'Content-Length': '279', 'X-GitHub-Request-Id': 'BCC0:12A499:85E959:8D294D:671A441A'} 
+ body={"message":"API rate limit exceeded for 34.249.211.96. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"}
+ 
+ </msg>
+<msg timestamp="20241024 14:56:59.075" level="FAIL">HTTPError: 403 Client Error: rate limit exceeded for url: https://api.github.com/users/gerardllopart94/repos</msg>
+<status status="FAIL" starttime="20241024 14:56:58.671" endtime="20241024 14:56:59.077"/>
+</kw>
+<msg timestamp="20241024 14:56:59.078" level="INFO">${response_status} = False</msg>
+<status status="PASS" starttime="20241024 14:56:58.670" endtime="20241024 14:56:59.078"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_status}' == 'True'">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.082" endtime="20241024 14:56:59.083"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:59.081" endtime="20241024 14:56:59.084"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:59.079" endtime="20241024 14:56:59.085"/>
+</if>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${expected_endpoint_response_code}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<msg timestamp="20241024 14:56:59.088" level="FAIL">Url: https://api.github.com/users/gerardllopart94/repos Expected status: 403 != 200</msg>
+<status status="FAIL" starttime="20241024 14:56:59.085" endtime="20241024 14:56:59.090"/>
+</kw>
+<if>
+<branch type="IF" condition="'${needToCheckResponseKeys}' == 'yesNeedToCheckResponseKeys'">
+<try>
+<branch type="TRY">
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${response.json()}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.094" endtime="20241024 14:56:59.095"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:59.093" endtime="20241024 14:56:59.095"/>
+</branch>
+<branch type="EXCEPT">
+<kw name="Create List" library="BuiltIn">
+<var>${json_keys}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.097" endtime="20241024 14:56:59.097"/>
+</kw>
+<for flavor="IN">
+<var>${repo}</var>
+<value>@{response.json()}</value>
+<iter>
+<var name="${repo}"/>
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${repo}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.099" endtime="20241024 14:56:59.100"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:59.098" endtime="20241024 14:56:59.100"/>
+</iter>
+<status status="NOT RUN" starttime="20241024 14:56:59.098" endtime="20241024 14:56:59.100"/>
+</for>
+<status status="NOT RUN" starttime="20241024 14:56:59.096" endtime="20241024 14:56:59.101"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:59.093" endtime="20241024 14:56:59.103"/>
+</try>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${json_keys}</arg>
+<arg>${expected_response_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.104" endtime="20241024 14:56:59.104"/>
+</kw>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${expected_response_keys}</arg>
+<arg>${json_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.105" endtime="20241024 14:56:59.106"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:59.092" endtime="20241024 14:56:59.106"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:59.092" endtime="20241024 14:56:59.106"/>
+</if>
+<status status="FAIL" starttime="20241024 14:56:58.663" endtime="20241024 14:56:59.107"/>
+</kw>
+<kw name="Check API response code and response keys in json format if necessary" library="Logic_Keywords_API">
+<arg>/users/gerardllopart94usernotfound/repos</arg>
+<arg>noTokenNeeded</arg>
+<arg>404</arg>
+<arg>noNeedToCheckResponseKeys</arg>
+<arg>${EMPTY}</arg>
+<if>
+<branch type="IF" condition="'${needToken}' == 'noTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20241024 14:56:59.113" level="INFO">Creating Session using : alias=github_session, url=http://api.github.com/users/gerardllopart94usernotfound/repos, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20241024 14:56:59.113" endtime="20241024 14:56:59.114"/>
+</kw>
+<status status="PASS" starttime="20241024 14:56:59.112" endtime="20241024 14:56:59.114"/>
+</branch>
+<branch type="ELSE IF" condition="'${needToken}' == 'yesTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<arg>headers={"Authorization": "token ${token}"}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.115" endtime="20241024 14:56:59.115"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:59.114" endtime="20241024 14:56:59.115"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:59.111" endtime="20241024 14:56:59.115"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${response_status}</var>
+<arg>GET On Session</arg>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="GET On Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:56:59.517" level="INFO">GET Request : url=http://api.github.com/users/gerardllopart94usernotfound/repos (redirected) 
+ path_url=/users/gerardllopart94usernotfound/repos 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:56:59.518" level="INFO">GET Response : url=https://api.github.com/users/gerardllopart94usernotfound/repos 
+ status=403, reason=rate limit exceeded 
+ headers={'Date': 'Thu, 24 Oct 2024 12:56:59 GMT', 'Server': 'Varnish', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'deny', 'X-XSS-Protection': '1; mode=block', 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'", 'Access-Control-Allow-Origin': '*', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-RateLimit-Used, X-RateLimit-Resource, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset', 'Content-Type': 'application/json; charset=utf-8', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'X-GitHub-Media-Type': 'github.v3; format=json', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1729776088', 'X-RateLimit-Resource': 'core', 'X-RateLimit-Used': '60', 'Content-Length': '279', 'X-GitHub-Request-Id': 'EB6E:FBD42:6161C2:673729:671A441B'} 
+ body={"message":"API rate limit exceeded for 34.249.211.96. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"}
+ 
+ </msg>
+<msg timestamp="20241024 14:56:59.520" level="FAIL">HTTPError: 403 Client Error: rate limit exceeded for url: https://api.github.com/users/gerardllopart94usernotfound/repos</msg>
+<status status="FAIL" starttime="20241024 14:56:59.116" endtime="20241024 14:56:59.522"/>
+</kw>
+<msg timestamp="20241024 14:56:59.523" level="INFO">${response_status} = False</msg>
+<status status="PASS" starttime="20241024 14:56:59.115" endtime="20241024 14:56:59.523"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_status}' == 'True'">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.525" endtime="20241024 14:56:59.527"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:59.525" endtime="20241024 14:56:59.528"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:59.524" endtime="20241024 14:56:59.528"/>
+</if>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${expected_endpoint_response_code}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<msg timestamp="20241024 14:56:59.531" level="FAIL">Url: https://api.github.com/users/gerardllopart94usernotfound/repos Expected status: 403 != 404</msg>
+<status status="FAIL" starttime="20241024 14:56:59.529" endtime="20241024 14:56:59.533"/>
+</kw>
+<if>
+<branch type="IF" condition="'${needToCheckResponseKeys}' == 'yesNeedToCheckResponseKeys'">
+<try>
+<branch type="TRY">
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${response.json()}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.535" endtime="20241024 14:56:59.535"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:59.534" endtime="20241024 14:56:59.536"/>
+</branch>
+<branch type="EXCEPT">
+<kw name="Create List" library="BuiltIn">
+<var>${json_keys}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.536" endtime="20241024 14:56:59.537"/>
+</kw>
+<for flavor="IN">
+<var>${repo}</var>
+<value>@{response.json()}</value>
+<iter>
+<var name="${repo}"/>
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${repo}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.538" endtime="20241024 14:56:59.539"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:59.537" endtime="20241024 14:56:59.539"/>
+</iter>
+<status status="NOT RUN" starttime="20241024 14:56:59.537" endtime="20241024 14:56:59.539"/>
+</for>
+<status status="NOT RUN" starttime="20241024 14:56:59.536" endtime="20241024 14:56:59.540"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:59.534" endtime="20241024 14:56:59.540"/>
+</try>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${json_keys}</arg>
+<arg>${expected_response_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.541" endtime="20241024 14:56:59.541"/>
+</kw>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${expected_response_keys}</arg>
+<arg>${json_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.541" endtime="20241024 14:56:59.541"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:59.534" endtime="20241024 14:56:59.542"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:56:59.534" endtime="20241024 14:56:59.542"/>
+</if>
+<status status="FAIL" starttime="20241024 14:56:59.109" endtime="20241024 14:56:59.543"/>
+</kw>
+<kw name="Check API response code and response keys in json format if necessary" library="Logic_Keywords_API">
+<arg>/user/repos</arg>
+<arg>yesTokenNeeded</arg>
+<arg>200</arg>
+<arg>yesNeedToCheckResponseKeys</arg>
+<arg>@{expresponse_user_private_repos}</arg>
+<if>
+<branch type="IF" condition="'${needToken}' == 'noTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="NOT RUN" starttime="20241024 14:56:59.546" endtime="20241024 14:56:59.546"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:56:59.545" endtime="20241024 14:56:59.546"/>
+</branch>
+<branch type="ELSE IF" condition="'${needToken}' == 'yesTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<arg>headers={"Authorization": "token ${token}"}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20241024 14:56:59.548" level="INFO">Creating Session using : alias=github_session, url=http://api.github.com/user/repos, headers={'Authorization': 'token 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'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20241024 14:56:59.548" endtime="20241024 14:56:59.549"/>
+</kw>
+<status status="PASS" starttime="20241024 14:56:59.547" endtime="20241024 14:56:59.549"/>
+</branch>
+<status status="PASS" starttime="20241024 14:56:59.545" endtime="20241024 14:56:59.549"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${response_status}</var>
+<arg>GET On Session</arg>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="GET On Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:57:00.259" level="INFO">GET Request : url=http://api.github.com/user/repos (redirected) 
+ path_url=/user/repos 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'token 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'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:57:00.260" level="INFO">GET Response : url=https://api.github.com/user/repos 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 24 Oct 2024 12:57:00 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'private, max-age=60, s-maxage=60', 'Vary': 'Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept, X-Requested-With', 'ETag': 'W/"242a3c4f1e971699e9f5d6e2ea73bd5b76bd5c1d80d2c21d9c94032650c37800"', 'github-authentication-token-expiration': '2024-11-23 12:37:34 +0100', 'X-GitHub-Media-Type': 'github.v3; format=json', 'x-accepted-github-permissions': 'metadata=read', 'x-github-api-version-selected': '2022-11-28', 'X-RateLimit-Limit': '5000', 'X-RateLimit-Remaining': '4976', 'X-RateLimit-Reset': '1729776507', 'X-RateLimit-Used': '24', 'X-RateLimit-Resource': 'core', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset', 'Access-Control-Allow-Origin': '*', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Frame-Options': 'deny', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'Content-Security-Policy': "default-src 'none'", 'Content-Encoding': 'gzip', 'Transfer-Encoding': 'chunked', 'Server': 'github.com', 'X-GitHub-Request-Id': 'EB7A:12547C:7C6DA9:83ADD2:671A441B'} 
+ body=[{"id":877758088,"node_id":"R_kgDONFGGiA","name":"automation_tests_RobotFramework_AParentMedia","full_name":"gerardllopart94/automation_tests_RobotFramework_AParentMedia","private":false,"owner":{"login":"gerardllopart94","id":186145156,"node_id":"U_kgDOCxhZhA","avatar_url":"https://avatars.githubusercontent.com/u/186145156?v=4","gravatar_id":"","url":"https://api.github.com/users/gerardllopart94","html_url":"https://github.com/gerardllopart94","followers_url":"https://api.github.com/users/gerardllopart94/followers","following_url":"https://api.github.com/users/gerardllopart94/following{/other_user}","gists_url":"https://api.github.com/users/gerardllopart94/gists{/gist_id}","starred_url":"https://api.github.com/users/gerardllopart94/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/gerardllopart94/subscriptions","organizations_url":"https://api.github.com/users/gerardllopart94/orgs","repos_url":"https://api.github.com/users/gerardllopart94/repos","events_url":"https://api.github.com/users/gerardllopart94/events{/privacy}","received_events_url":"https://api.github.com/users/gerardllopart94/received_events","type":"User","user_view_type":"public","site_admin":false},"html_url":"https://github.com/gerardllopart94/automation_tests_RobotFramework_AParentMedia","description":null,"fork":false,"url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia","forks_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/forks","keys_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/keys{/key_id}","collaborators_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/teams","hooks_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/hooks","issue_events_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/issues/events{/number}","events_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/events","assignees_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/assignees{/user}","branches_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/branches{/branch}","tags_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/tags","blobs_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/git/refs{/sha}","trees_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/git/trees{/sha}","statuses_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/statuses/{sha}","languages_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/languages","stargazers_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/stargazers","contributors_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/contributors","subscribers_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/subscribers","subscription_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/subscription","commits_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/commits{/sha}","git_commits_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/git/commits{/sha}","comments_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/comments{/number}","issue_comment_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/issues/comments{/number}","contents_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/contents/{+path}","compare_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/compare/{base}...{head}","merges_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/merges","archive_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/downloads","issues_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/issues{/number}","pulls_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/pulls{/number}","milestones_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/milestones{/number}","notifications_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/labels{/name}","releases_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/releases{/id}","deployments_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/deployments","created_at":"2024-10-24T07:35:57Z","updated_at":"2024-10-24T07:35:57Z","pushed_at":"2024-10-24T07:35:57Z","git_url":"git://github.com/gerardllopart94/automation_tests_RobotFramework_AParentMedia.git","ssh_url":"git@github.com:gerardllopart94/automation_tests_RobotFramework_AParentMedia.git","clone_url":"https://github.com/gerardllopart94/automation_tests_RobotFramework_AParentMedia.git","svn_url":"https://github.com/gerardllopart94/automation_tests_RobotFramework_AParentMedia","homepage":null,"size":0,"stargazers_count":0,"watchers_count":0,"language":null,"has_issues":true,"has_projects":true,"has_downloads":true,"has_wiki":true,"has_pages":false,"has_discussions":false,"forks_count":0,"mirror_url":null,"archived":false,"disabled":false,"open_issues_count":0,"license":null,"allow_forking":true,"is_template":false,"web_commit_signoff_required":false,"topics":[],"visibility":"public","forks":0,"open_issues":0,"watchers":0,"default_branch":"main","permissions":{"admin":true,"maintain":true,"push":true,"triage":true,"pull":true}}] 
+ </msg>
+<status status="PASS" starttime="20241024 14:56:59.550" endtime="20241024 14:57:00.261"/>
+</kw>
+<msg timestamp="20241024 14:57:00.262" level="INFO">${response_status} = True</msg>
+<status status="PASS" starttime="20241024 14:56:59.549" endtime="20241024 14:57:00.262"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_status}' == 'True'">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:57:00.549" level="INFO">GET Request : url=http://api.github.com/user/repos (redirected) 
+ path_url=/user/repos 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'token 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'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:57:00.550" level="INFO">GET Response : url=https://api.github.com/user/repos 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 24 Oct 2024 12:57:00 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'private, max-age=60, s-maxage=60', 'Vary': 'Accept, Authorization, Cookie, X-GitHub-OTP,Accept-Encoding, Accept, X-Requested-With', 'ETag': 'W/"242a3c4f1e971699e9f5d6e2ea73bd5b76bd5c1d80d2c21d9c94032650c37800"', 'github-authentication-token-expiration': '2024-11-23 12:37:34 +0100', 'X-GitHub-Media-Type': 'github.v3; format=json', 'x-accepted-github-permissions': 'metadata=read', 'x-github-api-version-selected': '2022-11-28', 'X-RateLimit-Limit': '5000', 'X-RateLimit-Remaining': '4975', 'X-RateLimit-Reset': '1729776507', 'X-RateLimit-Used': '25', 'X-RateLimit-Resource': 'core', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset', 'Access-Control-Allow-Origin': '*', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Frame-Options': 'deny', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'Content-Security-Policy': "default-src 'none'", 'Content-Encoding': 'gzip', 'Transfer-Encoding': 'chunked', 'Server': 'github.com', 'X-GitHub-Request-Id': 'EB7A:12547C:7C6DF7:83AE29:671A441C'} 
+ body=[{"id":877758088,"node_id":"R_kgDONFGGiA","name":"automation_tests_RobotFramework_AParentMedia","full_name":"gerardllopart94/automation_tests_RobotFramework_AParentMedia","private":false,"owner":{"login":"gerardllopart94","id":186145156,"node_id":"U_kgDOCxhZhA","avatar_url":"https://avatars.githubusercontent.com/u/186145156?v=4","gravatar_id":"","url":"https://api.github.com/users/gerardllopart94","html_url":"https://github.com/gerardllopart94","followers_url":"https://api.github.com/users/gerardllopart94/followers","following_url":"https://api.github.com/users/gerardllopart94/following{/other_user}","gists_url":"https://api.github.com/users/gerardllopart94/gists{/gist_id}","starred_url":"https://api.github.com/users/gerardllopart94/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/gerardllopart94/subscriptions","organizations_url":"https://api.github.com/users/gerardllopart94/orgs","repos_url":"https://api.github.com/users/gerardllopart94/repos","events_url":"https://api.github.com/users/gerardllopart94/events{/privacy}","received_events_url":"https://api.github.com/users/gerardllopart94/received_events","type":"User","user_view_type":"public","site_admin":false},"html_url":"https://github.com/gerardllopart94/automation_tests_RobotFramework_AParentMedia","description":null,"fork":false,"url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia","forks_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/forks","keys_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/keys{/key_id}","collaborators_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/teams","hooks_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/hooks","issue_events_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/issues/events{/number}","events_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/events","assignees_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/assignees{/user}","branches_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/branches{/branch}","tags_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/tags","blobs_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/git/refs{/sha}","trees_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/git/trees{/sha}","statuses_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/statuses/{sha}","languages_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/languages","stargazers_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/stargazers","contributors_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/contributors","subscribers_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/subscribers","subscription_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/subscription","commits_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/commits{/sha}","git_commits_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/git/commits{/sha}","comments_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/comments{/number}","issue_comment_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/issues/comments{/number}","contents_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/contents/{+path}","compare_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/compare/{base}...{head}","merges_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/merges","archive_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/downloads","issues_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/issues{/number}","pulls_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/pulls{/number}","milestones_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/milestones{/number}","notifications_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/labels{/name}","releases_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/releases{/id}","deployments_url":"https://api.github.com/repos/gerardllopart94/automation_tests_RobotFramework_AParentMedia/deployments","created_at":"2024-10-24T07:35:57Z","updated_at":"2024-10-24T07:35:57Z","pushed_at":"2024-10-24T07:35:57Z","git_url":"git://github.com/gerardllopart94/automation_tests_RobotFramework_AParentMedia.git","ssh_url":"git@github.com:gerardllopart94/automation_tests_RobotFramework_AParentMedia.git","clone_url":"https://github.com/gerardllopart94/automation_tests_RobotFramework_AParentMedia.git","svn_url":"https://github.com/gerardllopart94/automation_tests_RobotFramework_AParentMedia","homepage":null,"size":0,"stargazers_count":0,"watchers_count":0,"language":null,"has_issues":true,"has_projects":true,"has_downloads":true,"has_wiki":true,"has_pages":false,"has_discussions":false,"forks_count":0,"mirror_url":null,"archived":false,"disabled":false,"open_issues_count":0,"license":null,"allow_forking":true,"is_template":false,"web_commit_signoff_required":false,"topics":[],"visibility":"public","forks":0,"open_issues":0,"watchers":0,"default_branch":"main","permissions":{"admin":true,"maintain":true,"push":true,"triage":true,"pull":true}}] 
+ </msg>
+<msg timestamp="20241024 14:57:00.552" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20241024 14:57:00.263" endtime="20241024 14:57:00.552"/>
+</kw>
+<status status="PASS" starttime="20241024 14:57:00.263" endtime="20241024 14:57:00.553"/>
+</branch>
+<status status="PASS" starttime="20241024 14:57:00.262" endtime="20241024 14:57:00.553"/>
+</if>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${expected_endpoint_response_code}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20241024 14:57:00.554" endtime="20241024 14:57:00.555"/>
+</kw>
+<if>
+<branch type="IF" condition="'${needToCheckResponseKeys}' == 'yesNeedToCheckResponseKeys'">
+<try>
+<branch type="TRY">
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${response.json()}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<msg timestamp="20241024 14:57:00.563" level="FAIL">AttributeError: 'list' object has no attribute 'keys'</msg>
+<status status="FAIL" starttime="20241024 14:57:00.558" endtime="20241024 14:57:00.564"/>
+</kw>
+<status status="FAIL" starttime="20241024 14:57:00.558" endtime="20241024 14:57:00.565"/>
+</branch>
+<branch type="EXCEPT">
+<kw name="Create List" library="BuiltIn">
+<var>${json_keys}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20241024 14:57:00.566" level="INFO">${json_keys} = []</msg>
+<status status="PASS" starttime="20241024 14:57:00.565" endtime="20241024 14:57:00.566"/>
+</kw>
+<for flavor="IN">
+<var>${repo}</var>
+<value>@{response.json()}</value>
+<iter>
+<var name="${repo}">{'id': 877758088, 'node_id': 'R_kgDONFGGiA', 'name': 'automation_tests_RobotFramework_AParentMedia', 'full_name': 'gerardllopart94/automation_tests_RobotFramework_AParentMedia', 'private': False, 'own...</var>
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${repo}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<msg timestamp="20241024 14:57:00.568" level="INFO">${json_keys} = ['allow_forking', 'archive_url', 'archived', 'assignees_url', 'blobs_url', 'branches_url', 'clone_url', 'collaborators_url', 'comments_url', 'commits_url', 'compare_url', 'contents_url', 'contributors...</msg>
+<status status="PASS" starttime="20241024 14:57:00.567" endtime="20241024 14:57:00.568"/>
+</kw>
+<status status="PASS" starttime="20241024 14:57:00.567" endtime="20241024 14:57:00.568"/>
+</iter>
+<status status="PASS" starttime="20241024 14:57:00.566" endtime="20241024 14:57:00.568"/>
+</for>
+<status status="PASS" starttime="20241024 14:57:00.565" endtime="20241024 14:57:00.568"/>
+</branch>
+<status status="PASS" starttime="20241024 14:57:00.557" endtime="20241024 14:57:00.568"/>
+</try>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${json_keys}</arg>
+<arg>${expected_response_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="PASS" starttime="20241024 14:57:00.569" endtime="20241024 14:57:00.569"/>
+</kw>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${expected_response_keys}</arg>
+<arg>${json_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="PASS" starttime="20241024 14:57:00.569" endtime="20241024 14:57:00.570"/>
+</kw>
+<status status="PASS" starttime="20241024 14:57:00.557" endtime="20241024 14:57:00.570"/>
+</branch>
+<status status="PASS" starttime="20241024 14:57:00.556" endtime="20241024 14:57:00.570"/>
+</if>
+<status status="PASS" starttime="20241024 14:56:59.543" endtime="20241024 14:57:00.570"/>
+</kw>
+<kw name="Check API response code and response keys in json format if necessary" library="Logic_Keywords_API">
+<arg>/user/repos</arg>
+<arg>noTokenNeeded</arg>
+<arg>401</arg>
+<arg>noNeedToCheckResponseKeys</arg>
+<arg>${EMPTY}</arg>
+<if>
+<branch type="IF" condition="'${needToken}' == 'noTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20241024 14:57:00.572" level="INFO">Creating Session using : alias=github_session, url=http://api.github.com/user/repos, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20241024 14:57:00.572" endtime="20241024 14:57:00.573"/>
+</kw>
+<status status="PASS" starttime="20241024 14:57:00.572" endtime="20241024 14:57:00.573"/>
+</branch>
+<branch type="ELSE IF" condition="'${needToken}' == 'yesTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<arg>headers={"Authorization": "token ${token}"}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="NOT RUN" starttime="20241024 14:57:00.573" endtime="20241024 14:57:00.574"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:57:00.573" endtime="20241024 14:57:00.574"/>
+</branch>
+<status status="PASS" starttime="20241024 14:57:00.572" endtime="20241024 14:57:00.574"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${response_status}</var>
+<arg>GET On Session</arg>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="GET On Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:57:00.955" level="INFO">GET Request : url=http://api.github.com/user/repos (redirected) 
+ path_url=/user/repos 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:57:00.955" level="INFO">GET Response : url=https://api.github.com/user/repos 
+ status=403, reason=rate limit exceeded 
+ headers={'Date': 'Thu, 24 Oct 2024 12:57:00 GMT', 'Server': 'Varnish', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'deny', 'X-XSS-Protection': '1; mode=block', 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'", 'Access-Control-Allow-Origin': '*', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-RateLimit-Used, X-RateLimit-Resource, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset', 'Content-Type': 'application/json; charset=utf-8', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'X-GitHub-Media-Type': 'github.v3; format=json', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1729776088', 'X-RateLimit-Resource': 'core', 'X-RateLimit-Used': '60', 'Content-Length': '279', 'X-GitHub-Request-Id': 'EB8A:124A4B:8168B0:88A8CE:671A441C'} 
+ body={"message":"API rate limit exceeded for 34.249.211.96. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"}
+ 
+ </msg>
+<msg timestamp="20241024 14:57:00.956" level="FAIL">HTTPError: 403 Client Error: rate limit exceeded for url: https://api.github.com/user/repos</msg>
+<status status="FAIL" starttime="20241024 14:57:00.574" endtime="20241024 14:57:00.956"/>
+</kw>
+<msg timestamp="20241024 14:57:00.957" level="INFO">${response_status} = False</msg>
+<status status="PASS" starttime="20241024 14:57:00.574" endtime="20241024 14:57:00.957"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_status}' == 'True'">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:00.958" endtime="20241024 14:57:00.958"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:57:00.957" endtime="20241024 14:57:00.958"/>
+</branch>
+<status status="PASS" starttime="20241024 14:57:00.957" endtime="20241024 14:57:00.959"/>
+</if>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${expected_endpoint_response_code}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<msg timestamp="20241024 14:57:00.960" level="FAIL">Url: https://api.github.com/user/repos Expected status: 403 != 401</msg>
+<status status="FAIL" starttime="20241024 14:57:00.959" endtime="20241024 14:57:00.960"/>
+</kw>
+<if>
+<branch type="IF" condition="'${needToCheckResponseKeys}' == 'yesNeedToCheckResponseKeys'">
+<try>
+<branch type="TRY">
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${response.json()}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:00.962" endtime="20241024 14:57:00.962"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:57:00.961" endtime="20241024 14:57:00.962"/>
+</branch>
+<branch type="EXCEPT">
+<kw name="Create List" library="BuiltIn">
+<var>${json_keys}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:00.963" endtime="20241024 14:57:00.963"/>
+</kw>
+<for flavor="IN">
+<var>${repo}</var>
+<value>@{response.json()}</value>
+<iter>
+<var name="${repo}"/>
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${repo}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:00.964" endtime="20241024 14:57:00.964"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:57:00.964" endtime="20241024 14:57:00.964"/>
+</iter>
+<status status="NOT RUN" starttime="20241024 14:57:00.963" endtime="20241024 14:57:00.964"/>
+</for>
+<status status="NOT RUN" starttime="20241024 14:57:00.962" endtime="20241024 14:57:00.964"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:57:00.961" endtime="20241024 14:57:00.965"/>
+</try>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${json_keys}</arg>
+<arg>${expected_response_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:00.965" endtime="20241024 14:57:00.965"/>
+</kw>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${expected_response_keys}</arg>
+<arg>${json_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:00.965" endtime="20241024 14:57:00.965"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:57:00.961" endtime="20241024 14:57:00.965"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:57:00.961" endtime="20241024 14:57:00.965"/>
+</if>
+<status status="FAIL" starttime="20241024 14:57:00.571" endtime="20241024 14:57:00.966"/>
+</kw>
+<kw name="Check API response code and response keys in json format if necessary" library="Logic_Keywords_API">
+<arg>/userTest/repos</arg>
+<arg>noTokenNeeded</arg>
+<arg>404</arg>
+<arg>noNeedToCheckResponseKeys</arg>
+<arg>${EMPTY}</arg>
+<if>
+<branch type="IF" condition="'${needToken}' == 'noTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20241024 14:57:00.968" level="INFO">Creating Session using : alias=github_session, url=http://api.github.com/userTest/repos, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20241024 14:57:00.967" endtime="20241024 14:57:00.968"/>
+</kw>
+<status status="PASS" starttime="20241024 14:57:00.967" endtime="20241024 14:57:00.968"/>
+</branch>
+<branch type="ELSE IF" condition="'${needToken}' == 'yesTokenNeeded'">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<arg>verify=True</arg>
+<arg>headers={"Authorization": "token ${token}"}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="NOT RUN" starttime="20241024 14:57:00.968" endtime="20241024 14:57:00.968"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:57:00.968" endtime="20241024 14:57:00.969"/>
+</branch>
+<status status="PASS" starttime="20241024 14:57:00.967" endtime="20241024 14:57:00.969"/>
+</if>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${response_status}</var>
+<arg>GET On Session</arg>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="GET On Session" library="RequestsLibrary">
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20241024 14:57:01.385" level="INFO">GET Request : url=http://api.github.com/userTest/repos (redirected) 
+ path_url=/userTest/repos 
+ headers={'User-Agent': 'python-requests/2.27.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20241024 14:57:01.385" level="INFO">GET Response : url=https://api.github.com/userTest/repos 
+ status=403, reason=rate limit exceeded 
+ headers={'Date': 'Thu, 24 Oct 2024 12:57:01 GMT', 'Server': 'Varnish', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'deny', 'X-XSS-Protection': '1; mode=block', 'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'", 'Access-Control-Allow-Origin': '*', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-RateLimit-Used, X-RateLimit-Resource, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, Deprecation, Sunset', 'Content-Type': 'application/json; charset=utf-8', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'X-GitHub-Media-Type': 'github.v3; format=json', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1729776088', 'X-RateLimit-Resource': 'core', 'X-RateLimit-Used': '60', 'Content-Length': '279', 'X-GitHub-Request-Id': 'EB96:125FC6:7B778F:82B7BA:671A441D'} 
+ body={"message":"API rate limit exceeded for 34.249.211.96. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)","documentation_url":"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"}
+ 
+ </msg>
+<msg timestamp="20241024 14:57:01.386" level="FAIL">HTTPError: 403 Client Error: rate limit exceeded for url: https://api.github.com/userTest/repos</msg>
+<status status="FAIL" starttime="20241024 14:57:00.969" endtime="20241024 14:57:01.386"/>
+</kw>
+<msg timestamp="20241024 14:57:01.386" level="INFO">${response_status} = False</msg>
+<status status="PASS" starttime="20241024 14:57:00.969" endtime="20241024 14:57:01.386"/>
+</kw>
+<if>
+<branch type="IF" condition="'${response_status}' == 'True'">
+<kw name="GET On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>github_session</arg>
+<arg>${github_host}${endpoint_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:01.387" endtime="20241024 14:57:01.387"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:57:01.387" endtime="20241024 14:57:01.387"/>
+</branch>
+<status status="PASS" starttime="20241024 14:57:01.386" endtime="20241024 14:57:01.387"/>
+</if>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${expected_endpoint_response_code}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<msg timestamp="20241024 14:57:01.388" level="FAIL">Url: https://api.github.com/userTest/repos Expected status: 403 != 404</msg>
+<status status="FAIL" starttime="20241024 14:57:01.387" endtime="20241024 14:57:01.389"/>
+</kw>
+<if>
+<branch type="IF" condition="'${needToCheckResponseKeys}' == 'yesNeedToCheckResponseKeys'">
+<try>
+<branch type="TRY">
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${response.json()}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:01.389" endtime="20241024 14:57:01.389"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:57:01.389" endtime="20241024 14:57:01.390"/>
+</branch>
+<branch type="EXCEPT">
+<kw name="Create List" library="BuiltIn">
+<var>${json_keys}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:01.390" endtime="20241024 14:57:01.390"/>
+</kw>
+<for flavor="IN">
+<var>${repo}</var>
+<value>@{response.json()}</value>
+<iter>
+<var name="${repo}"/>
+<kw name="Get Dictionary Keys" library="Collections">
+<var>${json_keys}</var>
+<arg>${repo}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:01.390" endtime="20241024 14:57:01.390"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:57:01.390" endtime="20241024 14:57:01.390"/>
+</iter>
+<status status="NOT RUN" starttime="20241024 14:57:01.390" endtime="20241024 14:57:01.391"/>
+</for>
+<status status="NOT RUN" starttime="20241024 14:57:01.390" endtime="20241024 14:57:01.391"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:57:01.389" endtime="20241024 14:57:01.391"/>
+</try>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${json_keys}</arg>
+<arg>${expected_response_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:01.391" endtime="20241024 14:57:01.391"/>
+</kw>
+<kw name="List Should Contain Sub List" library="Collections">
+<arg>${expected_response_keys}</arg>
+<arg>${json_keys}</arg>
+<doc>Fails if not all of the elements in ``list2`` are found in ``list1``.</doc>
+<status status="NOT RUN" starttime="20241024 14:57:01.391" endtime="20241024 14:57:01.391"/>
+</kw>
+<status status="NOT RUN" starttime="20241024 14:57:01.389" endtime="20241024 14:57:01.391"/>
+</branch>
+<status status="NOT RUN" starttime="20241024 14:57:01.389" endtime="20241024 14:57:01.392"/>
+</if>
+<status status="FAIL" starttime="20241024 14:57:00.966" endtime="20241024 14:57:01.392"/>
+</kw>
+<status status="FAIL" starttime="20241024 14:56:55.968" endtime="20241024 14:57:01.394">Several failures occurred:
+
+1) Url: https://api.github.com/users/gerardllopart94 Expected status: 403 != 200
+
+2) Url: https://api.github.com/users/gerardllopart94usernotfound Expected status: 403 != 404
+
+3) Url: https://api.github.com/user Expected status: 403 != 401
+
+4) Url: https://api.github.com/userTest Expected status: 403 != 404
+
+5) Url: https://api.github.com/users/gerardllopart94/repos Expected status: 403 != 200
+
+6) Url: https://api.github.com/users/gerardllopart94usernotfound/repos Expected status: 403 != 404
+
+7) Url: https://api.github.com/user/repos Expected status: 403 != 401
+
+8) Url: https://api.github.com/userTest/repos Expected status: 403 != 404</status>
+</test>
+<status status="FAIL" starttime="20241024 14:56:55.793" endtime="20241024 14:57:01.395"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Test Suite API">Test Suite API</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
