@@ -67,7 +67,7 @@ Get 8digit number Random
 
 Generate email
     ${random}    Get 8digit number Random
-    ${email}    Catenate    rbtFwk${random}@gmail.com
+    ${email}    Catenate    robotFramework${random}@gmail.com
     RETURN    ${email}
 
 Generate Valid DNI
