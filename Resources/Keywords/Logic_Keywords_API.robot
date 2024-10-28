@@ -54,14 +54,11 @@ Check endpoint length
     ${json_lenght}    Get Length    ${response.json()}
     Should Be Equal    ${expected_lenght}    ${json_lenght}
 
-Update endpoint metadata
+Update endpoint metadata and check updated content
     [Arguments]    ${endpoint_url}    ${endpoint_element}    ${text}
     ${data}    Set Variable    {"${endpoint_element}": "${text}"}
     ${response}    PATCH On Session    github_session    ${github_host}${endpoint_url}    data=${data}
     Should Be Equal    ${response.status_code}    ${200}
-
-Check content value
-    [Arguments]    ${endpoint_url}    ${endpoint_element}    ${text}
     ${response}    GET On Session    github_session    ${github_host}${endpoint_url}
     ${APIData}    Set Variable    ${response.json()}
     Should Be Equal    ${APIData['${endpoint_element}']}    ${text}

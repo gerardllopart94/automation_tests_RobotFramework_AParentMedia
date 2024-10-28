@@ -30,17 +30,14 @@ Task 2 & 6 - Logged user own profile & Update logged user metadata
     Check endpoint response keys     /user    @{/user}
     ${random}    Get 8digit number Random
     ${userName_data}    Catenate    gerardLlopartId${random}
-    Update endpoint metadata     /user    name    ${userName_data}
-    Check content value    /user    name    ${userName_data}
+    Update endpoint metadata and check updated content     /user    name    ${userName_data}
     ${DNI}    Generate Valid DNI
     ${phone}    Generate phone
     ${bio_data}    Catenate    I'm Gerard and my DNI is ${DNI} and my phone is ${phone}
-    Update endpoint metadata     /user    bio    ${bio_data}
-    Check content value    /user    bio    ${bio_data}
+    Update endpoint metadata and check updated content     /user    bio    ${bio_data}
     ${email}    Generate email
     ${blog_data}    Catenate    If you wanna see my blog, please send an email to ${email}
-    Update endpoint metadata     /user    blog    ${blog_data}
-    Check content value    /user    blog    ${blog_data}
+    Update endpoint metadata and check updated content     /user    blog    ${blog_data}
 
 Task 3 - List repositories
     Create API session    /users/${github_username}/repos    noTokenNeeded
@@ -66,7 +63,7 @@ Task 5 - List commits of a repository
     Create API session    /repos/${github_username}/${githubRepo}/commits    noTokenNeeded
     Check endpoint response code    /repos/${github_username}/${githubRepo}/commits    200
     Check endpoint response keys    /repos/${github_username}/${githubRepo}/commits    @{/repos/userid/repoid/commits}
-    Check endpoint length    /repos/${github_username}/${githubRepo}/commits    ${3}
+    Check endpoint length    /repos/${github_username}/${githubRepo}/commits    ${6}
 
 # TASK 7 IS DONE WITHIN THE OTHER TASKS BUT IT'S REPEATED HERE
 Task 7 - Implement testing example workflow
@@ -76,17 +73,14 @@ Task 7 - Implement testing example workflow
     # Step 2
     Create API session    /user    yesTokenNeeded
     Check endpoint response code    /user    200
-    # Step 3
+    # Step 3 & 4
     ${DNI}    Generate Valid DNI
     ${phone}    Generate phone
     ${bio_data}    Catenate    I'm Gerard and my DNI is ${DNI} and my phone is ${phone}
-    Update endpoint metadata     /user    bio    ${bio_data}
+    Update endpoint metadata and check updated content     /user    bio    ${bio_data}
     ${random}    Get 8digit number Random
     ${userName_data}    Catenate    gerardLlopartId${random}
-    Update endpoint metadata     /user    name    ${userName_data}
-    # Step 4
-    Check content value    /user    name    ${userName_data}
-    Check content value    /user    bio    ${bio_data}
+    Update endpoint metadata and check updated content     /user    name    ${userName_data}
     # Steps 5 & 7 & 8
     Create API session    /user/repos    yesTokenNeeded
     Check endpoint response keys    /user/repos    @{/user/repos}
