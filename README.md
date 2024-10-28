@@ -52,7 +52,7 @@ This section provides a detailed explanation of each test case included in the p
 This keyword initializes a session with the GitHub API, taking an endpoint URL and a flag indicating whether a token is required for authentication. Depending on this flag, it sets up the session either with or without an authorization token.
 
 #### Check endpoint response code
-This keyword checks the response code of an API call. If the call fails (does not return a response), it logs an error message.
+This keyword checks the response code of an API call.
 
 #### Check endpoint response keys
 This keyword retrieves the keys from the API response and compares them with the expected keys to ensure they match. It handles both direct responses and lists of repositories.
@@ -60,11 +60,8 @@ This keyword retrieves the keys from the API response and compares them with the
 #### Check endpoint length
 This keyword counts the number of items returned in the API response. In Task 3, it counts the number of repositories, while in Task 5, it counts the number of commits. It validates that the returned count matches the expected value.
 
-#### Update endpoint metadata
-This keyword sends a PATCH request to update specific metadata (like name or bio) for the logged user and verifies that the response indicates success (HTTP status code 200).
-
-#### Check content value
-This keyword retrieves a specific field from the API response and checks that it matches the expected value.
+#### Update endpoint metadata and check updated content
+This keyword sends a PATCH request to update specific metadata (like name or bio) for the logged user and verifies that the response indicates success (HTTP status code 200). Then, the same keyword retrieves a specific field from the API response and checks that it matches the expected value.
 
 ---
 

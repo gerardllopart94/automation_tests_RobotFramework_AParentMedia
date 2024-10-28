@@ -1,7 +1,6 @@
 *** Settings ***
 Resource          ../Resources/Keywords/Logic_Keywords_API.robot
 Variables         ../Resources/Data/expected_keys_dictionary.py
-Resource          ../Resources/Keywords/Util_Keywords.robot
 
 *** Variables ***
 ${github_username}    ${credentials_dict}[githubAPIsVariables][username]
@@ -63,7 +62,7 @@ Task 5 - List commits of a repository
     Create API session    /repos/${github_username}/${githubRepo}/commits    noTokenNeeded
     Check endpoint response code    /repos/${github_username}/${githubRepo}/commits    200
     Check endpoint response keys    /repos/${github_username}/${githubRepo}/commits    @{/repos/userid/repoid/commits}
-    Check endpoint length    /repos/${github_username}/${githubRepo}/commits    ${6}
+    Check endpoint length    /repos/${github_username}/${githubRepo}/commits    ${9}
 
 # TASK 7 IS DONE WITHIN THE OTHER TASKS BUT IT'S REPEATED HERE
 Task 7 - Implement testing example workflow
